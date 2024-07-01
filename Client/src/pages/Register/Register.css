@@ -24,6 +24,7 @@ body {
     width: 50%;
     /* --tw-bg-opacity:1; */
     background-color: rgb(33, 18, 238);
+height:120%;
 }
 
 .login-right {
@@ -60,11 +61,11 @@ body {
 
 .login-logo {
     align-self: center;
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 .login-logo img {
-    width: 50px;
+    width: 80px;
 }
 
 .login-center {
@@ -79,8 +80,8 @@ body {
 
 .login-center {
     text-align: center;
-    margin-top: 10px;
-    padding-top:10px;
+    
+    padding-top:-4px;
 }
 
 .head {
@@ -349,7 +350,11 @@ span {
     margin: 0px 5px;
     border-radius: 50%;
 }
-
+@media (max-height:200vh){
+    .login-main{
+        overflow-y: scroll;
+    }
+}
 @media(max-width: 600px) {
     .login-logo {
         padding-top: 50px;

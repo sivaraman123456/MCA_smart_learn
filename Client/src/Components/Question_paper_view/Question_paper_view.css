@@ -1,0 +1,62 @@
+.search-bar input{
+    width:60%;
+  margin-top: 5%;
+    justify-content: center;
+    display: flex;
+    margin-left: 20%;
+    height: 30px;
+    border-radius: 15px;
+    padding-left: 15px;
+    border: none;
+    border: 1px solid grey;
+
+}
+.search-bar input::placeholder{
+    text-align: center;
+font-size: 12px;
+}
+.explore{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 5%;
+}
+.explore h1{
+    font-weight: bold;
+
+
+}
+.explore-menu-text p{
+    font-size: 14px;
+
+}
+
+
+.uploaded {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .inner-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card {
+    width: 100%;
+  }
+  

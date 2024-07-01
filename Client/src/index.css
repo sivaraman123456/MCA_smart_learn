@@ -3,3 +3,11 @@
     padding: 0;
     margin: 0;
 }
+.error {
+    color: rgb(241, 41, 41);
+}
+.menu{
+    justify-content: end;
+    display: flex;
+    align-items: end;
+}

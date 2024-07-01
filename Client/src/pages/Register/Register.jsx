@@ -1,29 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
-import Cookies from 'js-cookie';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import bcrypt from 'bcryptjs';
 import { ToastContainer } from "react-toastify";
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
-// import api from "../utils/api.js";
-// import Logo from "../assets/logo.png";
+import Logo from "../../assets/edu.jpg";
 import { Validation } from "../../utils/validation.js";
 import loginImageJSON from "../../assets/login_image.json";
 import {
     Box,  CircularProgress,Modal
 } from '@mui/material';
-import "./Login.css";
-const Login = () => {
+import "./Register.css";
+import { showToastMessage } from "../../utils/notification.js";
+
+const Regitser = ({setAuth}) => {
 
     const [image, setImage] = useState(loginImageJSON);
     const [errors, setErrors] = useState({ name:'',email: '', password: '' })
     const [inputs, setInputs] = useState({name:"", email: "", password: "" })
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const { name,email, password } = inputs
+    const { name,email, password } = inputs;
 
     const leftRotate = () => {
         let firstElement = image.shift();
@@ -55,34 +54,32 @@ const Login = () => {
         setErrors(Validation(inputs));
       
         try {
+            if (errors.email == "" && errors.password == "" && errors.name == ""){
+                const body={email,password,name}
             const response = await fetch('http://localhost:5000/api/auth/register' ,{
-                method:"POST"
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(body)
             });
-            const users = response.data;
-            setLoading(true)
-            if (errors.email === "" && errors.password === "") {
-                const user = users.find(user => user.email === email);
-                if (user) {
-                    const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
-                    if (passwordMatch) {
-                        try {
-                            Cookies.set('user_email', user.email);
-                            Cookies.set('user_id', user.id);
-                            Cookies.set('user_name', user.name);
-                            Cookies.set('user_role', user.role);
-                            // navigate("/");
-                        } catch (error) {
-                            console.error('Login failed:', error);
-                        }
-                    } else {
-                        setErrors((prev) => ({ ...prev, password: "Invalid Password" }));
-                    }
-                } else {
-                    setErrors((prev) => ({ ...prev, email: "Invalid Email" }));
-                }
-            }
-        } catch (error) {
+const parseRes=await response.json()
+console.log(parseRes);
+if(parseRes.token){
+navigate("/login")
+showToastMessage("success","Student Registered ")
+localStorage.setItem("token",parseRes.token)
+setAuth(true)
+
+}
+else{
+showToastMessage("error","Student Not Registered")
+}
+}
+else{
+ setAuth(false)
+}
+    } catch (error) {
             console.error('Login failed:', error);
+            showToastMessage("error",error)
         }
         finally{
             setLoading(false)
@@ -169,15 +166,15 @@ const Login = () => {
             <div className="login-right">
                 <div className="login-right-container">
                     <div className="login-logo">
-                        {/* <img src={Logo} alt="" /> */}
+                         <img src={Logo} alt="" /> 
                     </div>
-                    <div className="head"><h1>TALENTSHIP</h1>
+                    <div className="head"><h1>MCA Smart Learn</h1>
                         <p>Ease of access is our priority. With just a few clicks, you can log in and access your account in no time</p>
                      </div>
                     <div className="login-center">
                         <form onSubmit={handleSubmit}>
                         <div className="input-name" style={{fontSize:"14px"}}>
-                                <input type="email" name="name" placeholder="Email" value={name} onChange={e => { onChange(e) }} />
+                                <input type="text" name="name" placeholder="Name" value={name} onChange={e => { onChange(e) }} />
                                 {errors.name && <span className="error"> {errors.name}</span>}
                             </div>
                             <div className="input-name" style={{fontSize:"14px"}}>
@@ -190,9 +187,12 @@ const Login = () => {
                                 {errors.password && <span className="error">{errors.password}</span>}
                             </div>
                             <div className="login-center-buttons">
-                                <center>  <button type="submit"  style={{width:"30%"}}>Log In</button></center>
+                                <center>  <button type="submit"  style={{width:"30%"}}>Register</button></center>
                             </div>
                         </form>
+                        <div className="redirect">
+                            <a href="/login"> Login here</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,4 +201,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Regitser;

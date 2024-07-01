@@ -1,18 +1,3 @@
-/* 
-.Home
-{
-
-        background-image: url("../../assets/random/coding/ bg10.jpg");
-        background-size:"cover";
-        background-position: "center";
-        height: "100vh";
-        width: "100%";
-    
-}
-.me-auto Nav.Link:hover{
-        color:orange;
-
-} */
 .header{
     width: 90%;
     margin: auto;
@@ -63,6 +48,27 @@
     font-size: max(1vw,13px);
     border-radius: 50px;
 }
+.signup{
+    justify-content: end;
+    display: flex;
+    align-items: end;
+    
+}
+.signup a{
+position: relative;
+    margin-right: 8%;
+    margin-top: 2%;
+    font-size: 15px;
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px;
+}
+.signup a:hover{
+   color: rgb(6, 183, 210);
+}
 @media (max-width:1050px) {
     .header{
         height: 38vw;
@@ -76,9 +82,13 @@
         max-width: 55%;
     }
     .header-contents p{
-       display: none;
+       font-size: 12px;
     }
     .header-contents button{
         padding: 2vw 4vw;
     }
 }
+
+.header-contents h2 .coding-skills {
+    font-size: 1em;
+  }

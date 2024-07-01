@@ -1,30 +1,39 @@
 import React, { useState, useEffect, useContext } from "react";
-import Cookies from 'js-cookie';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import bcrypt from 'bcryptjs';
 import { ToastContainer } from "react-toastify";
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
-// import api from "../utils/api.js";
-// import Logo from "../assets/logo.png";
+import Logo from "../../assets/edu.jpg";
 import { Validation } from "../../utils/validation.js";
 import loginImageJSON from "../../assets/login_image.json";
+import {jwtDecode} from 'jwt-decode';
 import {
     Box,  CircularProgress,Modal
 } from '@mui/material';
 import "./Login.css";
-const Login = () => {
+import { showToastMessage } from "../../utils/notification.js";
+import { RoleContext } from "../../App.jsx";
+import PageHeading from "../../Components/PageHeading.jsx";
+
+
+const Login = ({setAuth}) => {
 
     const [image, setImage] = useState(loginImageJSON);
     const [errors, setErrors] = useState({ email: '', password: '' })
     const [inputs, setInputs] = useState({ email: "", password: "" })
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+    const setRole=useContext(RoleContext);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const { email, password } = inputs
-
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);}
     const leftRotate = () => {
         let firstElement = image.shift();
         image.push(firstElement);
@@ -53,42 +62,66 @@ const Login = () => {
       
         e.preventDefault();
         setErrors(Validation(inputs));
+        console.log(errors.email,errors.password);
       
         try {
+            if(errors.email == "" && errors.password == ""){
+            const body={email,password}
+            
             const response = await fetch('http://localhost:5000/api/auth/login' ,{
-                method:"POST"
+                method:"POST",
+                headers:{"Content-type":"application/json"},
+                body:JSON.stringify(body)
             });
-            const users = response.data;
-            setLoading(true)
-            if (errors.email === "" && errors.password === "") {
-                const user = users.find(user => user.email === email);
-                if (user) {
-                    const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
-                    if (passwordMatch) {
-                        try {
-                            Cookies.set('user_email', user.email);
-                            Cookies.set('user_id', user.id);
-                            Cookies.set('user_name', user.name);
-                            Cookies.set('user_role', user.role);
-                            // navigate("/");
-                        } catch (error) {
-                            console.error('Login failed:', error);
+            const parseRes=await response.json()
+            if(parseRes.token)
+                {
+                    const user=jwtDecode(parseRes.token);
+                    console.log("Token Login:",parseRes.token);
+                    console.log("email:",user.user.email);
+                    console.log("Role:",user.user.role);
+                    localStorage.setItem("user_role",user.user.role)
+                    localStorage.setItem("user_email",user.user.email)
+                    if(user.user.role === 'admin')
+                {
+                            setAuth(true)
+                            setRole(true)
+                            showToastMessage("success","Login successfully")
+                            localStorage.setItem("token",parseRes.token)
                         }
-                    } else {
-                        setErrors((prev) => ({ ...prev, password: "Invalid Password" }));
+                    else{
+                        setAuth(true)
+                        setRole(false)
+                        showToastMessage("success","Login successfully")
+                        localStorage.setItem("token",parseRes.token)
+
                     }
-                } else {
-                    setErrors((prev) => ({ ...prev, email: "Invalid Email" }));
                 }
-            }
-        } catch (error) {
+        }
+        else{
+            setAuth(false)
+        }
+     } catch (error) {
             console.error('Login failed:', error);
+            showToastMessage("error","password or email invalid..!")
+
         }
         finally{
             setLoading(false)
         }
 
     };
+    const navigateToHome =()=>{
+        navigate("/")
+    }
+    const destroySession=()=>{
+    localStorage.removeItem("user_role")
+    localStorage.removeItem("token")
+    }
+    const menuItems = [
+        { label: 'Home', onClick: navigateToHome },
+        { label: 'Logout', onClick: destroySession }
+    ];
     if (loading) 
         {
         return (
@@ -163,15 +196,20 @@ const Login = () => {
                                 </div>
                             </Stack>
                         )}
-                    </Grid>
+                    </Grid>9
                 </div>
             </div>
             <div className="login-right">
                 <div className="login-right-container">
-                    <div className="login-logo">
-                        {/* <img src={Logo} alt="" /> */}
+                    <div className="menu">
+                    <PageHeading anchorEl={anchorEl} handleMenu={handleMenu} handleClose={handleClose} menuItems={menuItems} />
+
                     </div>
-                    <div className="head"><h1>TALENTSHIP</h1>
+
+                    <div className="login-logo">
+                         <img src={Logo} alt="" /> 
+                    </div>
+                    <div className="head"><h1>MCA Smart Learn</h1>
                         <p>Ease of access is our priority. With just a few clicks, you can log in and access your account in no time</p>
                     </div>
                     <div className="login-center">
@@ -189,6 +227,12 @@ const Login = () => {
                                 <center>  <button type="submit"  style={{width:"30%"}}>Log In</button></center>
                             </div>
                         </form>
+                        <div className="para">                       
+                        <p>Don't have an account?</p>
+</div>
+                        <div className="redirect">
+                            <a href="/register">register </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -14,7 +14,11 @@ const uploadQuestion = async (req, res) => {
     const sem = req.body.sem;
     const filename = req.files['file'][0];
     const imagename = req.files['image'][0];
-
+    let existingUser = await Question.findOne({filename})
+    if( existingUser)
+        {
+           return  res.json({success:false,message:"File  already exists.."})
+        }
     // Check if the files have a filename property
     if (!filename || !filename.filename || !imagename || !imagename.filename) {
         return res.status(400).json({ success: false, message: "Invalid file upload" });

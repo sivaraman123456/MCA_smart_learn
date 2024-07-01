@@ -8,24 +8,25 @@ const register=async(req,res)=>{
     try {
         var API_KEY=process.env.MAIl_API;
         sgmail.setApiKey(API_KEY)     
-const {name,email,password,role}=req.body;
-const  emailInfo={
-    to:`${email}`,
-    from:'sivaraman9344043151@gmail.com',
-    subject:"Register ",
-    html:`<h1 style="color:blue; font-family:Arial, sans-serif;">${name} Successfully Registered In!</h1>`
-}
-sgmail.send(emailInfo)
-.then((response)=>{console.log(response,"Email sent");
-})
-.catch(error=>{console.log(error,"Email not sent");
-})
+const {name,email,password}=req.body;
+
 
 let existingUser = await User.findOne({email})
 if( existingUser)
     {
        return  res.json({success:false,message:"user already exists.."})
     }
+    const  emailInfo={
+        to:`${email}`,
+        from:'sivaraman9344043151@gmail.com',
+        subject:"Register ",
+        html:`<h1 style="color:blue; font-family:Arial, sans-serif;">${name} Successfully Registered In!</h1>`
+    }
+    sgmail.send(emailInfo)
+    .then((response)=>{console.log(response,"Email sent");
+    })
+    .catch(error=>{console.log(error,"Email not sent");
+    })
 const saltRound=10;
 const salt= await bcrypt.genSalt(saltRound)
 const bcryptpass= await bcrypt.hash(password,salt);
@@ -40,9 +41,14 @@ role:"user"
 await user1.save()
 
 let userid=user1.id;
+let role=user1.role;
+let username=user1.name;
+let useremail=user1.email;
+let userpassword=user1.password;
+let avatar=user1.avatar;
 console.log("userid:",userid);
-let token=jwtGenerator({id:userid});
- res.status(201).json({token:token})
+let token=jwtGenerator({id:userid,role:role,name:username,email:useremail,password:userpassword,avatar:avatar});
+ return res.status(201).json({token:token})
    
 } catch (error) {
         console.error(error);

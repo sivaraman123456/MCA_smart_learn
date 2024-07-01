@@ -9,6 +9,8 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))//--destructure req.body
 connectDB()
+app.use("/files",express.static("files"))
+app.use("/questions",express.static("questions"))
 app.use("/api/auth",userAuth)
 app.use("/api",upload)
 app.listen(PORT,()=>
