@@ -22,12 +22,20 @@ const Notes = ({ setAuth }) => {
   const [loading, setLoading] = useState(true); // state for loading
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
-const handleMenu = (event) => {
+  const Vite_url = import.meta.env.VITE_BASE_URL;
+
+  const Vite_get_file=import.meta.env.VITE_GET_FILE;
+  const Vite_get_user=import.meta.env.VITE_GET_USER;
+  const Vite_show_pdf=import.meta.env.VITE_SHOW_PDF;
+
+  const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
 };
   const getFile = async () => {
     try {
-      const result = await fetch("http://localhost:5000/api/get_file", { method: "GET" });
+      const get_file=  `${Vite_url}${Vite_get_file}`;
+
+      const result = await fetch(get_file, { method: "GET" });
       const data = await result.json();
       if (data.status == "ok") {
         if (Array.isArray(data.data)) {
@@ -50,7 +58,9 @@ const handleMenu = (event) => {
     try {
      console.log();
      let emailID=localStorage.getItem("user_email")
-      const response = await fetch(`http://localhost:5000/api/auth/get_user/${emailID}`, {
+     const get_user=  `${Vite_url}${Vite_get_user}${emailID}`;
+
+      const response = await fetch(get_user, {
         method: "POST",
         headers: { token: localStorage.token },
   });
@@ -66,7 +76,9 @@ const handleMenu = (event) => {
   };
 
   const showPdf = (pdf) => {
-    window.open(`http://localhost:5000/files/${pdf}`, "_blank", "noreferrer");
+    const show_pdf=  `${Vite_url}${Vite_show_pdf}${pdf}`;
+
+    window.open(show_pdf, "_blank", "noreferrer");
   };
 
   const navigateToQuestion =()=>{
@@ -142,7 +154,7 @@ const handleClose = () => {
           {filteredData.map((data, index) => (
             <div key={index} className="inner-div">
               <div className="card" style={{ width: "19rem" }}>
-                <img src={`http://localhost:5000/files/${data.image}`} className="card-img-top" alt={data.subject} />
+                <img src={`${Vite_url}${Vite_show_pdf}${data.image}`} className="card-img-top" alt={data.subject} />
                 <div className="card-body">
                   <h5 className="card-title">Subject: {data.subject}</h5>
                   <h6 className="card-subtitle mb-2 text-muted">Semester: {data.sem}</h6>

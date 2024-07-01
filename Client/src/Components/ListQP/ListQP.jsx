@@ -11,9 +11,16 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
 const ListQP = () => {
   const [list, setList] = useState([]);
+  const Vite_url=import.meta.env.VITE_BASE_URL;
+  const Vite_get_questions=import.meta.env.VITE_GET_QUESTIONS;
+  const Vite_delete_question=import.meta.env.VITE_DELETE_QUESTION;
+  const Vite_show_question__pdf=import.meta.env.VITE_SHOW_QUESTION_PDF;
+
   const fetchList = async () => {
     try {
-      const result = await fetch('http://localhost:5000/api/get_question', { method: 'GET' });
+      const get_questions=  `${Vite_url}${Vite_get_questions}`;
+
+      const result = await fetch(get_questions, { method: 'GET' });
       const data = await result.json();
       console.log("datass:",data);
       // Ensure data is an array before setting the state
@@ -31,7 +38,10 @@ const ListQP = () => {
   const removedata = async (dataId) => {
     try {
       console.log("Id:",dataId);
-      const send = await axios.delete(`http://localhost:5000/api/delete_question/${dataId}`);
+      const delete_file=  `${Vite_url}${Vite_delete_question}${dataId}`;
+
+      console.log("Id:",dataId);
+      const send = await axios.delete(delete_file);
       if (send.data.status === 'ok') {
         toast.success('Question paper deleted successfully.');
         await fetchList();
@@ -47,7 +57,9 @@ const ListQP = () => {
     fetchList();
   }, []);
   const showPdf = (pdf) => {
-    window.open(`http://localhost:5000/questions/${pdf}`, "_blank", "noreferrer");
+    const show_pdf=  `${Vite_url}${Vite_show_question__pdf}${pdf}`;
+
+    window.open(show_pdf, "_blank", "noreferrer");
   };
   return (
     <>
@@ -73,7 +85,7 @@ const ListQP = () => {
                       
                             <TableRow  style={{ cursor: 'pointer' }}>
                                 <TableCell sx={{ fontSize: '1.2rem', color: 'inherit' }}>{index+1}</TableCell>
-                                <TableCell sx={{  color: 'inherit' }}><img style={{width:"50px"}}src={`${url}/questions/${item.image}`}  alt="" /></TableCell>
+                                <TableCell sx={{  color: 'inherit' }}><img style={{width:"50px"}}src={`${Vite_url}${Vite_show_question__pdf}${item.image}`}  alt="" /></TableCell>
 
                                 <TableCell sx={{ fontSize: '1.2rem', color: 'inherit' }}>{item.sem}</TableCell>
                                 <TableCell sx={{ fontSize: '1.2rem', color: 'inherit' }}>{item.subject}</TableCell>

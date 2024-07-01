@@ -9,6 +9,10 @@ const Question = () => {
         sem: "",
         
     });
+    const Vite_url=import.meta.env.VITE_BASE_URL;
+
+    const Vite_upload_question=import.meta.env.VITE_UPLOAD_QUESTION;
+
     const [image, setImage] = useState(false);
     const [file, setFile] = useState();
     const onSubmitHandler = async (event) => {
@@ -18,7 +22,9 @@ const Question = () => {
         formData.append("sem", data.sem);
         formData.append("file",file);
         formData.append("image", image);
-        const response = await axios.post("http://localhost:5000/api/question_upload", formData, {
+        const question_upload=  `${Vite_url}${Vite_upload_question}`;
+
+        const response = await axios.post(question_upload, formData, {
            
             headers: { "Content-type": "multipart/form-data" }});
             console.log("response:",response);

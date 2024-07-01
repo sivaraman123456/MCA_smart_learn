@@ -18,7 +18,8 @@ import PageHeading from "../../Components/PageHeading.jsx";
 
 
 const Login = ({setAuth}) => {
-
+    const Vite_login=import.meta.env.VITE_LOGIN;
+    const Vite_url=import.meta.env.VITE_BASE_URL;
     const [image, setImage] = useState(loginImageJSON);
     const [errors, setErrors] = useState({ email: '', password: '' })
     const [inputs, setInputs] = useState({ email: "", password: "" })
@@ -38,6 +39,7 @@ const Login = ({setAuth}) => {
         let firstElement = image.shift();
         image.push(firstElement);
         setImage([...image]);
+        console.log("urllll:",Vite_url);
     };
     const rightRotate = () => {
         let firstElement = image.pop();
@@ -59,16 +61,16 @@ const Login = ({setAuth}) => {
     });
 
     const handleSubmit = async (e) => {
-      
+
         e.preventDefault();
         setErrors(Validation(inputs));
         console.log(errors.email,errors.password);
-      
+        console.log("urllll:",Vite_url);
         try {
             if(errors.email == "" && errors.password == ""){
             const body={email,password}
-            
-            const response = await fetch('http://localhost:5000/api/auth/login' ,{
+            const loginUrl = `${Vite_url}${Vite_login}`;
+            const response = await fetch(loginUrl ,{
                 method:"POST",
                 headers:{"Content-type":"application/json"},
                 body:JSON.stringify(body)

@@ -5,6 +5,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Add = () => {
+    const Vite_url=import.meta.env.VITE_BASE_URL;
+    const Vite_file=import.meta.env.VITE_FILE_UPLOAD;
     console.log('add comp');
     const [data, setData] = useState({
         unit:"",
@@ -12,7 +14,7 @@ const Add = () => {
         sem: "first",
         category: "DSA"
     });
-
+    
     const [image, setImage] = useState(false);
     const [file, setFile] = useState();
     const onSubmitHandler = async (event) => {
@@ -21,12 +23,13 @@ const Add = () => {
         formData.append("unit",data.unit);
         formData.append("subject", data.subject);
         formData.append("sem", data.sem);
-        // formData.append("price", Number(data.price));
         formData.append("category", data.category);
         formData.append("file",file);
         formData.append("image", image);
         console.log(data.unit,{image},{file});
-        const response = await axios.post("http://localhost:5000/api/single", formData, {
+const file_upload=  `${Vite_url}${Vite_file}`;
+
+        const response = await axios.post(file_upload, formData, {
             headers: { "Content-type": "multipart/form-data" }});
         if (response.status== 201) {
             toast.success(response.data.message)

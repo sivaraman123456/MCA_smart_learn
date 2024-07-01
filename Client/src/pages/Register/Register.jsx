@@ -14,7 +14,8 @@ import "./Register.css";
 import { showToastMessage } from "../../utils/notification.js";
 
 const Regitser = ({setAuth}) => {
-
+const Vite_register=import.meta.env.VITE_REGISTER;
+const Vite_url=import.meta.env.VITE_BASE_URL;
     const [image, setImage] = useState(loginImageJSON);
     const [errors, setErrors] = useState({ name:'',email: '', password: '' })
     const [inputs, setInputs] = useState({name:"", email: "", password: "" })
@@ -56,7 +57,8 @@ const Regitser = ({setAuth}) => {
         try {
             if (errors.email == "" && errors.password == "" && errors.name == ""){
                 const body={email,password,name}
-            const response = await fetch('http://localhost:5000/api/auth/register' ,{
+                const registerUrl = `${Vite_url}${Vite_register}`;
+            const response = await fetch(registerUrl,{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(body)

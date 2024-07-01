@@ -19,10 +19,14 @@ const Question_paper_view = () => {
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
-  
+    const Vite_url=import.meta.env.VITE_BASE_URL;
+  const Vite_get_questions=import.meta.env.VITE_GET_QUESTIONS;
+  const Vite_delete_question=import.meta.env.VITE_DELETE_QUESTION;
+  const Vite_show_question__pdf=import.meta.env.VITE_SHOW_QUESTION_PDF;
     const getFile = async () => {
-        try {
-          const result = await fetch("http://localhost:5000/api/get_question", { method: "GET" });
+        try {  
+           const get_questions=  `${Vite_url}${Vite_get_questions}`;
+          const result = await fetch(get_questions, { method: "GET" });
           const data = await result.json();
           if (data.status == "ok") {
             if (Array.isArray(data.data)) {
@@ -41,7 +45,9 @@ const Question_paper_view = () => {
         }
       };
       const showPdf = (pdf) => {
-        window.open(`http://localhost:5000/questions/${pdf}`, "_blank", "noreferrer");
+        const show_pdf=  `${Vite_url}${Vite_show_question__pdf}${pdf}`;
+
+        window.open(show_pdf, "_blank", "noreferrer");
       };
       const navigateToQuestion =()=>{
         navigate("/notes")
@@ -93,7 +99,7 @@ const Question_paper_view = () => {
           {filteredData.map((data, index) => (
             <div key={index} className="inner-div">
               <div className="card" style={{ width: "19rem" }}>
-                <img src={`http://localhost:5000/questions/${data.image}`} className="card-img-top" alt={data.subject} />
+                <img src={`${Vite_url}${Vite_show_question__pdf}${data.image}`} className="card-img-top" alt={data.subject} />
                 <div className="card-body">
                   <h5 className="card-title">Subject: {data.subject}</h5>
                   <h6 className="card-subtitle mb-2 text-muted">Semester: {data.sem}</h6>
