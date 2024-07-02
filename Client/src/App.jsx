@@ -26,6 +26,9 @@ import Question_paper_view from './Components/Question_paper_view/Question_paper
 
 export const RoleContext=createContext()
 function App() {
+  const Vite_url=import.meta.env.VITE_BASE_URL;
+  const Vite_verify=import.meta.env.VITE_TOKEN_VERIFY;
+
 const [role,setRole]=useState(()=>{
   const role=localStorage.getItem("user_role")
 
@@ -41,7 +44,9 @@ const setAuth=(boolean)=>{
 }
 async function isAuth(){
   try{
-    const response=await fetch("http://localhost:5000/api/auth/verify",{
+    const tokenverify = `${Vite_url}${Vite_verify}`;
+
+    const response=await fetch(tokenverify,{
       method:"GET",
       headers:{token:localStorage.token}
      
