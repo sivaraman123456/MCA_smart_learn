@@ -39,7 +39,6 @@ const Login = ({setAuth}) => {
         let firstElement = image.shift();
         image.push(firstElement);
         setImage([...image]);
-        console.log("urllll:",Vite_url);
     };
     const rightRotate = () => {
         let firstElement = image.pop();
@@ -65,7 +64,6 @@ const Login = ({setAuth}) => {
         e.preventDefault();
         setErrors(Validation(inputs));
         console.log(errors.email,errors.password);
-        console.log("urllll:",Vite_url);
         try {
             if(errors.email == "" && errors.password == ""){
             const body={email,password}

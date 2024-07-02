@@ -23,12 +23,75 @@ if(!valid_password){
     return res.json({message:" password invalid"})
 
 }
-const emailInfo={
-    to:`${email}`,
-    from:'sivaraman9344043151@gmail.com',
-    subject:"Login ",
-    html:`<h1 style="color:green; font-family:Arial, sans-serif;">Successfully Logged In!</h1>`
-}
+// const emailInfo={
+//     to:`${email}`,
+//     from:'sivaraman9344043151@gmail.com',
+//     subject:"Login ",
+//     html:`<h1 style="color:green; font-family:Arial, sans-serif;">Successfully Logged In!</h1>`
+// }
+const emailInfo = {
+    to: `${email}`,
+    from: 'sivaraman9344043151@gmail.com',
+    subject: "Login",
+    html: `
+      <html>
+        <head>
+          <style>
+            /* CSS styles for the email */
+            body {
+              font-family: Arial, sans-serif;
+              line-height: 1.6;
+              background-color: #f0f0f0;
+              margin: 0;
+              padding: 0;
+            }
+            .container {
+              width: 100%;
+              max-width: 600px;
+              margin: auto;
+              padding: 20px;
+              background-color: #fff;
+              border-radius: 8px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .header {
+              background-color: #2196F3;
+              color: #ffffff;
+              text-align: center;
+              padding: 10px;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 8px;
+            }
+            .content {
+              padding: 20px;
+            }
+            h1 {
+              color: #2196F3;
+              font-size: 24px;
+              margin-bottom: 10px;
+            }
+            p {
+              font-size: 16px;
+              margin-bottom: 10px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Successfully Logged In!</h1>
+            </div>
+            <div class="content">
+        <p style="font-weight: bold;">You have successfully logged in to your account.</p>
+              <p>If you did not perform this action, please contact us immediately.</p>
+              <p>Best regards,<br>Siva Technology </p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `
+  };
+  
 console.log("login");
 sgmail.send(emailInfo)
 .then((response)=>{console.log(response,"Email sent");

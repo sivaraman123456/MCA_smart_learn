@@ -64,7 +64,7 @@ const Vite_url=import.meta.env.VITE_BASE_URL;
                 body:JSON.stringify(body)
             });
 const parseRes=await response.json()
-console.log(parseRes);
+console.log("huhuh",parseRes);
 if(parseRes.token){
 navigate("/login")
 showToastMessage("success","Student Registered ")

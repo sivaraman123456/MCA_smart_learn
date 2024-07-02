@@ -1,4 +1,4 @@
-.header{
+/* .header{
     width: 90%;
     margin: auto;
   }
@@ -26,7 +26,7 @@
     animation: fadeIn 3s;
 }
 .gradient_color {
-    background: linear-gradient(to right, #6137c5, #B794F4); /* Example gradient, adjust colors as needed */
+    background: linear-gradient(to right, #6137c5, #B794F4); 
     color: transparent;
 }
 
@@ -91,4 +91,117 @@ position: relative;
 
 .header-contents h2 .coding-skills {
     font-size: 1em;
+  } */
+
+  .header {
+    width: 90%;
+    margin: auto;
+    height: 34vw; /* Default height for larger screens */
+    margin: 30px auto;
+    background: url('../../assets/random/coding-bg1.jpg') no-repeat;
+    background-size: cover;
+    position: relative;
+    justify-content: center;
+    border-radius: 10px;
   }
+  
+  .header-contents {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.5vw;
+    max-width: 50%;
+    bottom: 20%;
+    left: 5vw;
+    animation: fadeIn 3s;
+  }
+  
+  .header-contents h2 {
+    font-weight: 500;
+    color: white;
+    font-size: max(3vw, 18px); /* Responsive font size */
+  }
+  
+  .header-contents p {
+    color: white;
+    font-size: 16px;
+  }
+  .header-contents h2 .coding-skills {
+    font-size: 1em;
+  }
+  .gradient_color {
+    background: linear-gradient(to right, #6137c5, #B794F4); 
+    color: transparent;
+}
+  .header-contents button {
+    border: none;
+    color: #747474;
+    font-weight: 500;
+    padding: 1vw 2.3vw;
+    background: white;
+    font-size: max(1vw, 13px); /* Responsive font size */
+    border-radius: 50px;
+  }
+  
+  .signup {
+    display: flex;
+    justify-content: flex-end; /* Adjusted alignment */
+    align-items: flex-end; /* Adjusted alignment */
+    margin-right: 8%;
+    margin-top: 2%;
+  }
+  
+  .signup a {
+    position: relative;
+    font-size: 15px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  
+  .signup a:hover {
+    color: rgb(6, 183, 210);
+  }
+  
+  @media (max-width: 1050px) {
+    .header {
+      height: 38vw;
+    }
+    .header-contents {
+      max-width: 45%;
+    }
+  }
+  
+  @media (max-width: 750px) {
+    .header {
+      height: 50vh; /* Adjusted height for smaller screens */
+    }
+    .header-contents {
+      max-width: 55%;
+    }
+    .header-contents p {
+      font-size: 12px;
+    }
+    .header-contents button {
+      padding: 2vw 4vw; /* Adjusted padding */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .header-contents h2 {
+      font-size: 1.5em; /* Adjusted font size for smaller screens */
+    }
+  }
+  .title{
+    justify-content: center;
+    text-align: center;
+  }
+  .title h3{
+    font-weight: bold;
+    font-size: 3rem;
+    font-family: 'Times New Roman';
+}
