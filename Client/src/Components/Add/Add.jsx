@@ -3,7 +3,20 @@ import './Add.css'
 import { assets, url } from '../../assets/assests';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import { Link } from 'react-router-dom';
+import {
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Typography,
+  Box,
+  Container,
+  IconButton
+} from '@mui/material';
+import { PhotoCamera } from '@mui/icons-material';
 const Add = () => {
     const Vite_url=import.meta.env.VITE_BASE_URL;
     const Vite_file=import.meta.env.VITE_FILE_UPLOAD;
@@ -53,70 +66,85 @@ const onChangeHandler = (event) => {
         setData(data => ({ ...data, [name]: value }))
     }
 return (
-        <div className='add'>
-            <form className='flex-col' onSubmit={onSubmitHandler}>
-                <div className='add-img-upload flex-col'>
-                    <p>Upload image</p>
-                    <label htmlFor="image">
-                        <img src={!image ? assets.upload_area : URL.createObjectURL(image)} alt="" />
-                    </label>
-                    <input onChange={(e) => { setImage(e.target.files[0]) }} type="file" id="image" hidden required />
-                </div>
-                <div className='add-product-description flex-col'>
-                <p>Upload File</p>
-                <input type='file'
-              onChange={(e) => setFile(e.target.files[0])}
-              className='form-control my-4  md-4'
-              required
-              accept='application/pdf' />
-              </div>
-              <div className='add-product-name flex-col'>
-                    <p>Semester</p>
-                    <select name='sem' onChange={onChangeHandler} >
-                            <option value="first">First sem</option>
-                            <option value="second">Second sem</option>
-                            <option value="third">Third sem</option>
-                            <option value="fourth">Final sem</option>
-                            
-                        </select>
-                </div>
-                <div className='add-product-name flex-col'>
-                    <p>Subject</p>
-                    <input name='subject' onChange={onChangeHandler} value={data.subject} type="text" placeholder='Type subject here' required />
-                </div>
-                <div className='add-product-name flex-col'>
-                    <p>Unit</p>
-                    <select name='unit' onChange={onChangeHandler} >
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
 
-                        </select>
-                </div>
-                <div className='add-category-price'>
-                    <div className='add-category flex-col'>
-                        <p>Subject category</p>
-                        <select name='category' onChange={onChangeHandler} >
-                            <option value="DSA">DSA</option>
-                            <option value="JAVA">JAVA</option>
-                            <option value="OOPs">OOPs</option>
-                            <option value="DBMS">DBMS</option>
-                            <option value="CN">COMPUTER NETWORK</option>
-                            <option value="OS">OS</option>
-                            <option value="PYTHON">PYTHON</option>
-                            <option value="ST">ST</option>
-                            <option value="SE">SE</option>
-                            <option value="IWT">IWT</option>
-                            <option value="MCS">MCS</option>
-                        </select>
-                    </div>
-                
-                </div>
-                <button type='submit' className='add-btn' >ADD</button>
-            </form>
-        </div>
+        <Container maxWidth="sm">
+        <Box component="form" onSubmit={onSubmitHandler} sx={{ display: 'flex', flexDirection: 'column', gap: 2 , backgroundColor: '#fff',
+        padding: 4,
+        borderRadius: 2,
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
+        mt: 4,}}>
+        <Typography variant="h4" align="center">File Upload</Typography>
+          <Typography variant="h6">Upload Image</Typography>
+          <Box display="flex" alignItems="center" gap={2}>
+            <IconButton color="primary" component="label">
+              <input hidden type="file" id="image" onChange={(e) => { setImage(e.target.files[0]); setImageState(e.target.files[0]); }} required />
+              <PhotoCamera />
+            </IconButton>
+            {image && <img src={URL.createObjectURL(image)} alt="" style={{ width: '100px', height: '100px', objectFit: 'cover' }} />}
+          </Box>
+  
+          <Typography variant="h5">Upload File</Typography>
+          {file && (
+        <Typography variant="h6">{file.name}</Typography>
+      )}
+          <Button variant="contained" component="label">
+            Upload PDF
+
+            <input hidden type="file" onChange={(e) => setFile(e.target.files[0])} accept="application/pdf" required />
+                   
+          </Button>
+  
+          <FormControl fullWidth>
+            <InputLabel id="semester-label">Semester</InputLabel>
+            <Select labelId="semester-label" name="sem" onChange={onChangeHandler} required>
+              <MenuItem value="first">First sem</MenuItem>
+              <MenuItem value="second">Second sem</MenuItem>
+              <MenuItem value="third">Third sem</MenuItem>
+              <MenuItem value="fourth">Final sem</MenuItem>
+            </Select>
+          </FormControl>
+  
+          <TextField
+            fullWidth
+            label="Subject"
+            name="subject"
+            onChange={onChangeHandler}
+            value={data.subject}
+            placeholder="Type subject here"
+            required
+          />
+  
+          <FormControl fullWidth>
+            <InputLabel id="unit-label">Unit</InputLabel>
+            <Select labelId="unit-label" name="unit" onChange={onChangeHandler} required>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5">5</MenuItem>
+            </Select>
+          </FormControl>
+  
+          <FormControl fullWidth>
+            <InputLabel id="category-label">Subject Category</InputLabel>
+            <Select labelId="category-label" name="category" onChange={onChangeHandler} required>
+              <MenuItem value="DSA">DSA</MenuItem>
+              <MenuItem value="JAVA">JAVA</MenuItem>
+              <MenuItem value="OOPs">OOPs</MenuItem>
+              <MenuItem value="DBMS">DBMS</MenuItem>
+              <MenuItem value="CN">COMPUTER NETWORK</MenuItem>
+              <MenuItem value="OS">OS</MenuItem>
+              <MenuItem value="PYTHON">PYTHON</MenuItem>
+              <MenuItem value="ST">ST</MenuItem>
+              <MenuItem value="SE">SE</MenuItem>
+              <MenuItem value="IWT">IWT</MenuItem>
+              <MenuItem value="MCS">MCS</MenuItem>
+            </Select>
+          </FormControl>
+  
+          <Button type="submit" variant="contained" color="primary" fullWidth className='add-btn'>ADD</Button>
+        </Box>
+      </Container>
     )
 }
 

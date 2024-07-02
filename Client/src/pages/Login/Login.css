@@ -372,16 +372,16 @@ span {
 
 @media(max-width: 600px) {
     .login-logo {
-        padding-top: 50px;
+        padding-top: 30px;
     }
 
     .login-left {
-        display: contents;
+      width: 100%;
     }
 
-    .login-right {
+    /* .login-right {
         width: 100%;
-    }
+    } */
 
 
 }

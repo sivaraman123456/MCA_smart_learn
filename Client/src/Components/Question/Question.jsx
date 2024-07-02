@@ -2,7 +2,19 @@ import React ,{ useState }from 'react'
 import { assets, url } from '../../assets/assests';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-
+import {
+    Button,
+    TextField,
+    Select,
+    MenuItem,
+    InputLabel,
+    FormControl,
+    Typography,
+    Box,
+    Container,
+    IconButton
+  } from '@mui/material';
+  import { PhotoCamera } from '@mui/icons-material';
 const Question = () => {
     const [data, setData] = useState({
      subject: "",
@@ -48,36 +60,92 @@ const Question = () => {
         setData(data => ({ ...data, [name]: value }))
     }
   return (
-    <div className='add'>
-            <form className='flex-col' onSubmit={onSubmitHandler}>
-                <div className='add-img-upload flex-col'>
-                    <p>Upload image</p>
-                    <label htmlFor="image">
-                        <img src={!image ? assets.upload_area : URL.createObjectURL(image)} alt="" />
-                    </label>
-                    <input onChange={(e) => { setImage(e.target.files[0]) }} type="file" id="image" hidden required />
-                </div>
-                <div className='add-product-description flex-col'>
-                <p>Upload File</p>
-                <input type='file'
-              onChange={(e) => setFile(e.target.files[0])}
-              className='form-control my-4  md-4'
-              required
-              accept='application/pdf' />
-              </div>
-              <div className='add-product-name flex-col'>
-                    <p>Semester</p>
-                    <input name='sem' onChange={onChangeHandler} value={data.sem} type="text" placeholder='Type subject here' required />
-                </div>
-                <div className='add-product-name flex-col'>
-                    <p>Subject</p>
-                    <input name='subject' onChange={onChangeHandler} value={data.subject} type="text" placeholder='Type subject here' required />
-                </div>
-               
-                
-                <button type='submit' className='add-btn' >ADD</button>
-            </form>
-        </div>
+   
+    <Container maxWidth="sm">
+    <Box
+      component="form"
+      onSubmit={onSubmitHandler}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 3,
+        backgroundColor: '#fff',
+        padding: 4,
+        borderRadius: 2,
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
+        mt: 4,
+      }}
+    >
+                <Typography variant="h4" align="center">Question Paper Upload</Typography>
+
+      <Typography variant="h6" gutterBottom>
+        Upload Image
+      </Typography>
+      <Box display="flex" alignItems="center" gap={2}>
+        <IconButton color="primary" component="label">
+          <input
+            hidden
+            type="file"
+            id="image"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+              setImageState(e.target.files[0]);
+            }}
+            required
+          />
+          <PhotoCamera />
+        </IconButton>
+        {image && (
+          <img
+            src={URL.createObjectURL(image)}
+            alt=""
+            style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }}
+          />
+        )}
+      </Box>
+
+      <Typography variant="h6" gutterBottom>
+        Upload File
+      </Typography>
+      {file && (
+        <Typography variant="h6">{file.name}</Typography>
+      )}
+      <Button variant="contained" component="label">
+        Upload PDF
+        <input
+          hidden
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
+          accept="application/pdf"
+          required
+        />
+      </Button>
+
+      <TextField
+        fullWidth
+        label="Semester"
+        name="sem"
+        onChange={onChangeHandler}
+        value={data.sem}
+        placeholder="Type semester here"
+        required
+      />
+
+      <TextField
+        fullWidth
+        label="Subject"
+        name="subject"
+        onChange={onChangeHandler}
+        value={data.subject}
+        placeholder="Type subject here"
+        required
+      />
+
+      <Button type="submit" variant="contained" color="primary" fullWidth>
+        ADD
+      </Button>
+    </Box>
+  </Container>
   )
 }
 
