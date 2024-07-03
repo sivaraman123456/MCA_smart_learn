@@ -2,7 +2,6 @@
 import File from "../models/file.model.js";
 
 const uploadFiles = async (req, res) => {
-    // Check if the required files are present
     console.log(req.body);
     if (!req.files || !req.files['file'] || !req.files['image']) {
         return res.status(400).json({ success: false, message: "Files not found" });
@@ -14,15 +13,10 @@ const uploadFiles = async (req, res) => {
     const category = req.body.category;
     const filename = req.files['file'][0];
     const imagename = req.files['image'][0];
-
-
-    // Check if the files have a filename property
     if (!filename || !filename.filename || !imagename || !imagename.filename) {
         return res.status(400).json({ success: false, message: "Invalid file upload" });
     }
     
-
-
     console.log("filename:", filename.filename);
     console.log("imagename:", imagename.filename);
 

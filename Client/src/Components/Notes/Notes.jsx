@@ -19,7 +19,7 @@ const Notes = ({ setAuth }) => {
   const [allImage, setAllImage] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  const [loading, setLoading] = useState(true); // state for loading
+  const [loading, setLoading] = useState(true); 
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const Vite_url = import.meta.env.VITE_BASE_URL;
@@ -50,7 +50,7 @@ const Notes = ({ setAuth }) => {
     } catch (err) {
       console.error("Error fetching files:", err);
     } finally {
-      setLoading(false); // set loading to false after fetching data
+      setLoading(false); 
     }
   };
 
@@ -148,7 +148,7 @@ const handleClose = () => {
      
        <div className="uploaded">
       {loading ? (
-        <CircularProgress /> // show loading spinner while fetching data
+        <CircularProgress /> 
       ) : (
         <div className="grid-container">
           {filteredData.map((data, index) => (

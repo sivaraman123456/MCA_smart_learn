@@ -6,10 +6,7 @@ import {
   Navigate,
   createBrowserRouter,
   BrowserRouter as Router,
-  Route,
-  Routes,
   RouterProvider,
-  useLocation
 } from "react-router-dom";
 import './App.css'
 import Home from './pages/Home/Home';

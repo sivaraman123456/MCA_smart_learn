@@ -2,7 +2,6 @@ import User from "../models/user.model.js";
 
 const get_user= async (req, res) => {
     try {
-        // req.user has the user_id from the middleware
         console.log("user_id:",req.user.user.id);
         const user = await User.findOne({ _id: req.user.user.id }).select('name email password');
         if (!user) {

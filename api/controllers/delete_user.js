@@ -4,7 +4,6 @@ import User from "../models/user.model.js";
 
 const delete_user=async(req,res)=>{
     try {
-        // req.user has the user_id from the middleware
         const user = await User.findOneAndDelete({ user_id: req.user });
           if (!user) {
             return res.status(404).json("User not found");

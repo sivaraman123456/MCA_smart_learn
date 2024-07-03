@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { ToastContainer } from "react-toastify";
@@ -8,10 +8,11 @@ import Logo from "../../assets/edu.jpg";
 import { Validation } from "../../utils/validation.js";
 import loginImageJSON from "../../assets/login_image.json";
 import {
-    Box,  CircularProgress,Modal
+     CircularProgress,Backdrop 
 } from '@mui/material';
 import "./Register.css";
 import { showToastMessage } from "../../utils/notification.js";
+import PageHeading from "../../Components/PageHeading.jsx";
 
 const Regitser = ({setAuth}) => {
 const Vite_register=import.meta.env.VITE_REGISTER;
@@ -22,9 +23,15 @@ const Vite_url=import.meta.env.VITE_BASE_URL;
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const { name,email, password } = inputs;
-
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     const leftRotate = () => {
         let firstElement = image.shift();
         image.push(firstElement);
@@ -53,7 +60,7 @@ const Vite_url=import.meta.env.VITE_BASE_URL;
       
         e.preventDefault();
         setErrors(Validation(inputs));
-      
+        setLoading(true);
         try {
             if (errors.email == "" && errors.password == "" && errors.name == ""){
                 const body={email,password,name}
@@ -88,23 +95,25 @@ else{
         }
 
     };
-    if (loading) 
-        {
-        return (
-            <Modal>
-                <Box sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                }}>
-                    <CircularProgress />
-                </Box>
-            </Modal>
-        );
-    }
+    const navigateToHome = () => {
+        navigate("/");
+    };
+    const destroySession = () => {
+        localStorage.removeItem("user_role");
+        localStorage.removeItem("token");
+    };
+
+    const menuItems = [
+        { label: 'Home', onClick: navigateToHome },
+        { label: 'Logout', onClick: destroySession }
+    ];
     return (
-        <div className="login-main">
+        <div className={`login-main ${loading ? 'blur' : ''}`}>
+            {loading && (
+                <Backdrop open={loading} style={{ zIndex: 9999 }}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            )}
             <div className="login-left">
                 <div className="image">
                     <Grid
@@ -167,6 +176,9 @@ else{
             </div>
             <div className="login-right">
                 <div className="login-right-container">
+                <div className="menu">
+                        <PageHeading anchorEl={anchorEl} handleMenu={handleMenu} handleClose={handleClose} menuItems={menuItems} />
+                    </div>
                     <div className="login-logo">
                          <img src={Logo} alt="" /> 
                     </div>

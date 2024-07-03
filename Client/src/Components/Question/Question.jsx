@@ -5,14 +5,14 @@ import axios from 'axios';
 import {
     Button,
     TextField,
-    Select,
-    MenuItem,
-    InputLabel,
-    FormControl,
     Typography,
     Box,
     Container,
-    IconButton
+    IconButton,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
   } from '@mui/material';
   import { PhotoCamera } from '@mui/icons-material';
 const Question = () => {
@@ -121,16 +121,16 @@ const Question = () => {
         />
       </Button>
 
-      <TextField
-        fullWidth
-        label="Semester"
-        name="sem"
-        onChange={onChangeHandler}
-        value={data.sem}
-        placeholder="Type semester here"
-        required
-      />
-
+     
+ <FormControl fullWidth>
+            <InputLabel id="semester-label">Semester</InputLabel>
+            <Select labelId="semester-label" name="sem" onChange={onChangeHandler} required>
+              <MenuItem value="first">First sem</MenuItem>
+              <MenuItem value="second">Second sem</MenuItem>
+              <MenuItem value="third">Third sem</MenuItem>
+              <MenuItem value="fourth">Final sem</MenuItem>
+            </Select>
+          </FormControl>
       <TextField
         fullWidth
         label="Subject"

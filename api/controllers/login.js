@@ -23,12 +23,7 @@ if(!valid_password){
     return res.json({message:" password invalid"})
 
 }
-// const emailInfo={
-//     to:`${email}`,
-//     from:'sivaraman9344043151@gmail.com',
-//     subject:"Login ",
-//     html:`<h1 style="color:green; font-family:Arial, sans-serif;">Successfully Logged In!</h1>`
-// }
+
 const emailInfo = {
     to: `${email}`,
     from: 'sivaraman9344043151@gmail.com',

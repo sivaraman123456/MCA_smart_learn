@@ -1,102 +1,8 @@
-/* .header{
-    width: 90%;
-    margin: auto;
-  }
-  
-.header{
-    height: 34vw;
-    margin: 30px auto;
-    background: url('../../assets/random/coding-bg1.jpg') no-repeat;
-    background-size:cover;
-    position: relative;
-    background-position: "center";
-   justify-content: center;
-   border-radius: 10px;
-   
-}
-.header-contents{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 1.5vw;
-    max-width: 50%;
-    bottom: 20%;
-    left: 5vw;
-    animation: fadeIn 3s;
-}
-.gradient_color {
-    background: linear-gradient(to right, #6137c5, #B794F4); 
-    color: transparent;
-}
-
-.header-contents h2{
-    font-weight:500;
-    color: white;
-    font-size: max(3vw,18px);
-}
-.header-contents p{
-    color: white;
-    font-size: 16px;
-}
-.header-contents button{
-    border: none;
-    color: #747474;
-    font-weight: 500;
-    padding: 1vw 2.3vw;
-    background: white;
-    font-size: max(1vw,13px);
-    border-radius: 50px;
-}
-.signup{
-    justify-content: end;
-    display: flex;
-    align-items: end;
-    
-}
-.signup a{
-position: relative;
-    margin-right: 8%;
-    margin-top: 2%;
-    font-size: 15px;
-    text-decoration: none;
-    color:black;
-    font-weight: bold;
-    border: 1px solid black;
-    padding: 5px;
-    border-radius: 10px;
-}
-.signup a:hover{
-   color: rgb(6, 183, 210);
-}
-@media (max-width:1050px) {
-    .header{
-        height: 38vw;
-    }
-    .header-contents{
-        max-width: 45%;
-    }
-}
-@media(max-width:750px){
-    .header-contents{
-        max-width: 55%;
-    }
-    .header-contents p{
-       font-size: 12px;
-    }
-    .header-contents button{
-        padding: 2vw 4vw;
-    }
-}
-
-.header-contents h2 .coding-skills {
-    font-size: 1em;
-  } */
 
   .header {
     width: 90%;
     margin: auto;
-    height: 34vw; /* Default height for larger screens */
+    height: 34vw; 
     margin: 30px auto;
     background: url('../../assets/random/coding-bg1.jpg') no-repeat;
     background-size: cover;
@@ -120,7 +26,7 @@ position: relative;
   .header-contents h2 {
     font-weight: 500;
     color: white;
-    font-size: max(3vw, 18px); /* Responsive font size */
+    font-size: max(3vw, 18px);
   }
   
   .header-contents p {
@@ -140,14 +46,14 @@ position: relative;
     font-weight: 500;
     padding: 1vw 2.3vw;
     background: white;
-    font-size: max(1vw, 13px); /* Responsive font size */
+    font-size: max(1vw, 13px); 
     border-radius: 50px;
   }
   
-  .signup {
+  /* .signup {
     display: flex;
-    justify-content: flex-end; /* Adjusted alignment */
-    align-items: flex-end; /* Adjusted alignment */
+    justify-content: flex-end;
+    align-items: flex-end; 
     margin-right: 8%;
     margin-top: 2%;
   }
@@ -165,8 +71,53 @@ position: relative;
   
   .signup a:hover {
     color: rgb(6, 183, 210);
+  } */
+  .signup {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end; 
+    margin-right: 8%;
+    margin-top: 2%;
   }
   
+  .signup a {
+    position: relative;
+    font-size: 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #6B46C1, #B794F4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .signup a::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #B794F4, #6B46C1);
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .signup a:hover {
+    color: white;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .signup a:hover::before {
+    opacity: 1;
+  }
+
   @media (max-width: 1050px) {
     .header {
       height: 38vw;
@@ -178,8 +129,8 @@ position: relative;
   
   @media (max-width: 750px) {
     .header {
-      height: 50vh; /* Adjusted height for smaller screens */
-    }
+      height: 50vh; 
+       }
     .header-contents {
       max-width: 55%;
     }
@@ -187,21 +138,32 @@ position: relative;
       font-size: 12px;
     }
     .header-contents button {
-      padding: 2vw 4vw; /* Adjusted padding */
+      padding: 2vw 4vw; 
     }
   }
   
   @media (max-width: 600px) {
     .header-contents h2 {
-      font-size: 1.5em; /* Adjusted font size for smaller screens */
+      font-size: 1.5em; 
     }
   }
-  .title{
-    justify-content: center;
-    text-align: center;
-  }
-  .title h3{
-    font-weight: bold;
-    font-size: 3rem;
-    font-family: 'Times New Roman';
+  .title {
+  justify-content: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.title h3 {
+  font-weight: bold;
+  font-size: 3rem;
+  font-family: 'Times New Roman', serif;
+  color: #6B46C1;
+  background: linear-gradient(to right, #6B46C1, #B794F4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  padding: 10px;
+  animation: fadeIn 3s ease-in-out;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
 }

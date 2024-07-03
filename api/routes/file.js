@@ -18,7 +18,7 @@ router.get("/get_question",get_question)
 
 router.delete("/delete_file/:dataId",async (req, res) => {
     try {
-      // Find the PDF document by file_id
+      
       const pdf = await File.findOne({ _id: req.params.dataId });
      
         if (!pdf) 
@@ -40,7 +40,7 @@ router.delete("/delete_file/:dataId",async (req, res) => {
       if (fs.existsSync(pdfPath)) {
         fs.unlinkSync(pdfPath);
       }
-     // Delete the document from the database
+  
       await File.deleteOne({ _id: req.params.dataId });
       res.send({ status: "ok" });
     } catch (err) {
@@ -51,7 +51,6 @@ router.delete("/delete_file/:dataId",async (req, res) => {
 
 router.delete("/delete_question/:dataId",async (req, res) => {
     try {
-      // Find the PDF document by file_id
       const pdf = await Question.findOne({ _id: req.params.dataId });
   
       if (!pdf) {
@@ -61,7 +60,6 @@ router.delete("/delete_question/:dataId",async (req, res) => {
       
       console.log("image:", pdf);
   
-      // Delete the files from the file system
       const imagePath = path.join(__dirname, '../api/questions/', pdf.image);
       const pdfPath = path.join(__dirname, '../api/questions/', pdf.pdf);
   
@@ -72,7 +70,6 @@ router.delete("/delete_question/:dataId",async (req, res) => {
       if (fs.existsSync(pdfPath)) {
        fs.unlinkSync(pdfPath);
       }
-      // Delete the document from the database
       await Question.deleteOne({ _id: req.params.dataId });
   
       res.send({ status: "ok" });

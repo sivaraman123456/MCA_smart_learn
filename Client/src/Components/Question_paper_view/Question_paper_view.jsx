@@ -13,7 +13,7 @@ const Question_paper_view = () => {
     const [allImage, setAllImage] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredData, setFilteredData] = useState([]);
-    const [loading, setLoading] = useState(true); // state for loading
+    const [loading, setLoading] = useState(true); 
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
     const handleMenu = (event) => {
@@ -41,7 +41,7 @@ const Question_paper_view = () => {
         } catch (err) {
           console.error("Error fetching files:", err);
         } finally {
-          setLoading(false); // set loading to false after fetching data
+          setLoading(false); 
         }
       };
       const showPdf = (pdf) => {

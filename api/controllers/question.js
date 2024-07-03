@@ -3,7 +3,6 @@
 import Question from "../models/question.model.js";
 
 const uploadQuestion = async (req, res) => {
-    // Check if the required files are present
     console.log(req.body);
     if (!req.files || !req.files['file'] || !req.files['image']) {
         return res.status(400).json({ success: false, message: "Files not found" });
@@ -19,7 +18,6 @@ const uploadQuestion = async (req, res) => {
         {
            return  res.json({success:false,message:"File  already exists.."})
         }
-    // Check if the files have a filename property
     if (!filename || !filename.filename || !imagename || !imagename.filename) {
         return res.status(400).json({ success: false, message: "Invalid file upload" });
     }
