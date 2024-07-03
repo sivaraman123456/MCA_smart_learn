@@ -71,7 +71,9 @@ const Login = ({ setAuth }) => {
                     body: JSON.stringify(body)
                 });
                 const parseRes = await response.json();
+                console.log(parseRes.message);
                 if (parseRes.token) {
+                    console.log("logggedd");
                     const user = jwtDecode(parseRes.token);
                     localStorage.setItem("user_role", user.user.role);
                     localStorage.setItem("user_email", user.user.email);
@@ -87,9 +89,13 @@ const Login = ({ setAuth }) => {
                         localStorage.setItem("token", parseRes.token);
                     }
                 }
-            } else {
-                setAuth(false);
-            }
+                else {
+                    console.log("errrrror");
+                    showToastMessage("error", parseRes.message);
+    
+                    setAuth(false);
+                }
+            } 
         } catch (error) {
             console.error('Login failed:', error);
             showToastMessage("error", "password or email invalid..!");
