@@ -115,11 +115,11 @@ font-size: 20px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
+    width: 1%;
     margin: 0 auto;
   }
   
-  .grid-container {
+  .app .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
@@ -152,5 +152,16 @@ font-size: 20px;
 @media (max-width:1050px) {
   .container {
     width: 90%;
+  }
+}
+
+@media (max-width: 600px) {
+ .app .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
   }
 }

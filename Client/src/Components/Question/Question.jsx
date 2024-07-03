@@ -13,6 +13,8 @@ import {
     InputLabel,
     Select,
     MenuItem,
+    CircularProgress,
+    Backdrop
   } from '@mui/material';
   import { PhotoCamera } from '@mui/icons-material';
 const Question = () => {
@@ -24,12 +26,15 @@ const Question = () => {
     const Vite_url=import.meta.env.VITE_BASE_URL;
 
     const Vite_upload_question=import.meta.env.VITE_UPLOAD_QUESTION;
+    const [loading, setLoading] = useState(false);
 
     const [image, setImage] = useState(false);
     const [file, setFile] = useState();
     const onSubmitHandler = async (event) => {
         event.preventDefault();
-        const formData = new FormData();
+        setLoading(true);
+try {
+  const formData = new FormData();
         formData.append("subject", data.subject);
         formData.append("sem", data.sem);
         formData.append("file",file);
@@ -53,6 +58,14 @@ const Question = () => {
         else {
             toast.error(response.data.message)
         }
+} catch (error) {
+  toast.error(error.message);
+
+}
+finally {
+  setLoading(false);
+}
+        
     }
     const onChangeHandler = (event) => {
         const name = event.target.name;
@@ -62,6 +75,12 @@ const Question = () => {
   return (
    
     <Container maxWidth="sm">
+       <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)' }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     <Box
       component="form"
       onSubmit={onSubmitHandler}
@@ -76,8 +95,26 @@ const Question = () => {
         mt: 4,
       }}
     >
-                <Typography variant="h4" align="center">Question Paper Upload</Typography>
-
+  <Typography
+  variant="h4"
+  align="center"
+  sx={{
+    fontWeight: 'bold',
+    fontSize: '3rem',
+    fontFamily: 'Times New Roman',
+    color: '#6B46C1',
+    background: 'linear-gradient(to right, #6B46C1, #B794F4)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+   
+    padding: '10px',
+    animation: 'fadeIn 3s ease-in-out',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+    letterSpacing: '1px'
+  }}
+>
+  Question Papaer Uploading
+</Typography>
       <Typography variant="h6" gutterBottom>
         Upload Image
       </Typography>

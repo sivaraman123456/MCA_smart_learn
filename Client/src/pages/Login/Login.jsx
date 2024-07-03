@@ -73,7 +73,6 @@ const Login = ({ setAuth }) => {
                 const parseRes = await response.json();
                 console.log(parseRes.message);
                 if (parseRes.token) {
-                    console.log("logggedd");
                     const user = jwtDecode(parseRes.token);
                     localStorage.setItem("user_role", user.user.role);
                     localStorage.setItem("user_email", user.user.email);
@@ -90,7 +89,6 @@ const Login = ({ setAuth }) => {
                     }
                 }
                 else {
-                    console.log("errrrror");
                     showToastMessage("error", parseRes.message);
     
                     setAuth(false);

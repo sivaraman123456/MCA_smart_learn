@@ -208,7 +208,26 @@ const ListQP = () => {
       ) : (
         <TableContainer component={Paper} sx={{ marginTop: '20px', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)', borderRadius: '8px', backgroundColor: '#fff', color: 'inherit' }}>
         <Box sx={{ textAlign: 'center', marginTop: '20px' }}>
-        <Typography variant="h4" align="center">Uploaded Question Papers</Typography>
+        <Typography
+  variant="h4"
+  align="center"
+  sx={{
+    fontWeight: 'bold',
+    fontSize: '3rem',
+    fontFamily: 'Times New Roman',
+    color: '#6B46C1',
+    background: 'linear-gradient(to right, #6B46C1, #B794F4)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    
+    padding: '10px',
+    animation: 'fadeIn 3s ease-in-out',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+    letterSpacing: '1px'
+  }}
+>
+  Uploaded Question Papers List
+</Typography>
       </Box>
           <Table>
             <TableHead sx={{ backgroundColor: '#e0e0e0' }}>
